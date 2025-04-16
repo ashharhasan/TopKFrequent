@@ -1,8 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
-Console.Write("asdasd");
-
-int k=1;
-int[] nums = new int[]{7,7};
+int k=2;
+int[] nums = new int[]{-1, 20, -1, 20, -1, 4, 16, 4, 4, 15, 4, 6};
 int[] output = TopKFrequent(nums,k);
 
 for(int i=0;i<k;i++)
@@ -22,15 +20,34 @@ int[] TopKFrequent(int[] nums, int k) {
             else
             d1[num]++;
         }
-        int[] output = new int[k];
-
-        for(int i =0; i<k;i++)
-        {
-            var maxPair= d1.First(x=> x.Value == d1.Values.Max());
-            
-            output[i] = maxPair.Key;
-            d1.Remove(maxPair.Key);
-        }
         
+
+        List<int>[] ArrayOfLists = new List<int>[nums.Length +1];
+
+        foreach(var pair in d1)
+        {
+            int freq = pair.Value;
+            if(ArrayOfLists[freq] == null)
+            {
+                ArrayOfLists[freq] = new List<int>();
+            }
+            ArrayOfLists[pair.Value].Add(pair.Key);
+        }
+
+        int[] output = new int[k];
+        int index=0;
+        for (int i= ArrayOfLists.Length-1;i>0;i--)
+        {
+            if(ArrayOfLists[i] != null)
+            {
+                output[index] = ArrayOfLists[i][0];
+                index++;
+                if(index == k)
+                {
+                    break;
+                }
+            }
+        }
+
         return output;
     }
