@@ -1,2 +1,8 @@
 /TopKFrequent/bin/
 /TopKFrequent/obj/
+*.user
+*.suo
+*.dbmdl
+.vs/
+bin/
+obj/
